@@ -25,7 +25,7 @@ function App() {
       fetch("https://api.spotify.com/v1/me", {
       method:'GET',
       headers:{
-        "Authorization": `Bearer BQBrctexL2bEbzb-qwWcHw08jUObSGc7T5PggxhL6pp2dIA73DEwWri6-DUCkhTURex314MHdtCbdfHmhxL7k-qbq9Qib-P_VwVSFhxUmOVlqVPoTcFgXsuvsDJhUHHpavnwQaQ7aHqhjyayvk6ZeWuGCg`
+        "Authorization": `Bearer ${process.env.REACT_APP_SPOTIFY_OAUTH}`
       }
     }).then((res)=>res.json())
       .then((data)=>{setDataUser(data);setStatus("success")})
