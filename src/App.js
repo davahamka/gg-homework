@@ -1,50 +1,126 @@
-import logo from './logo.svg';
-import './App.css';
-import { useEffect, useState } from 'react';
+import data from "./data";
+import "./App.css";
+import { useEffect, useState } from "react";
+import { RiCheckDoubleFill, RiDiscLine } from "react-icons/ri";
+
+const SongList = () => {
+  return <div></div>;
+};
+
+const AlbumInfo = ({ data, onClick, myPlaylist }) => {
+  const dateHoursMin = new Date(Date.UTC(0, 0, 0, 0, 0, 0, data.duration_ms));
+
+  return (
+    <div className="album-info">
+      <div className="image-box" style={{ position: "relative" }}>
+        <div className="overlay"></div>
+        <img src={data.album.images[0].url} alt="" />
+        <p className="image-box-text">{data.album.artists[0].name}</p>
+      </div>
+      <div>
+        <div className="album-description">
+          <p className="album-title">{data.name}</p>
+          <p className="album-mini-info">
+            {data.disc_number} songs, {dateHoursMin.getUTCMinutes()} hr{" "}
+            {dateHoursMin.getUTCSeconds()} min
+          </p>
+
+          <p></p>
+          <button
+            disabled={myPlaylist.includes(data.name)}
+            className="btn btn-select"
+            onClick={() => {
+              onClick(data.name);
+            }}
+          >
+            Select
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const Notification = ({ open, message, title }) => {
+  return (
+    <div className={`notification-box ${open ? "" : "hidden"}`}>
+      <RiCheckDoubleFill />
+      <div className="notification-message">
+        <p className="title">{title}</p>
+        <p className="text-mini">{message}</p>
+      </div>
+    </div>
+  );
+};
+
+const Header = ({ myPlaylist, removePlaylist }) => {
+  return (
+    <header>
+      <div className="layout header-inner">
+        <div>
+          <p
+            style={{ fontSize: "26pt", display: "flex", alignItems: "center" }}
+          >
+            m
+            <RiDiscLine />
+            sic
+          </p>
+        </div>
+        <div className="info-myplaylist" onClick={removePlaylist}>
+          Your playlist ({myPlaylist.length})
+        </div>
+      </div>
+    </header>
+  );
+};
 
 function App() {
-  const [token, setToken] = useState("");
-  const [dataUser, setDataUser] = useState(null);
-  const [status, setStatus] = useState("idle") 
+  const [myPlaylist, setMyPlaylist] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [selected, setSelected] = useState("");
 
-  useEffect(()=>{
-    setStatus("pending")
-    fetch('https://accounts.spotify.com/api/token', {
-      method:'POST',
-      headers:{
-        'Authorization': 'Basic ' +  btoa(process.env.REACT_APP_SPOTIFY_CLIENT_ID + ':' + process.env.REACT_APP_SPOTIFY_CLIENT_SECRET),
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: new URLSearchParams({grant_type: 'client_credentials'})
-    }).then(res=>res.json())
-      .then(data=>setToken(data.access_token))
-  },[])
-
-  useEffect(()=>{
-    if(token) {
-      fetch("https://api.spotify.com/v1/me", {
-      method:'GET',
-      headers:{
-        "Authorization": `Bearer ${process.env.REACT_APP_SPOTIFY_OAUTH}`
-      }
-    }).then((res)=>res.json())
-      .then((data)=>{setDataUser(data);setStatus("success")})
-      .catch(err=>{
-        console.log(err)
-      }
-    )
+  useEffect(() => {
+    if (open) {
+      setTimeout(() => {
+        setOpen(false);
+      }, 2000);
     }
-  },[token])
+  }, [open]);
+
+  const onSelectAlbum = (data) => {
+    if (myPlaylist.includes(data)) {
+      return;
+    }
+    setOpen(true);
+    setSelected(data);
+    setMyPlaylist((oldArray) => [...oldArray, data]);
+  };
 
   return (
     <div className="App">
-      <header className="App-header">
-       {status==="success" ?<img src={dataUser.images[0].url} className="App-logo" alt="logo" /> :status === "pending" || status === "idle" ? <img src={logo} className="App-logo" alt="logo" /> : ""}
-        <p>
-          <p className='text-display'>{dataUser?.display_name ?? "display_name"} - {dataUser?.country ?? "country"}</p>
-        </p>
-        <p>{process.env.REACT_APP_SPOTIFY_CLIENT_SECRET}</p>
-      </header>
+      <Header
+        myPlaylist={myPlaylist}
+        removePlaylist={() => {
+          setMyPlaylist([]);
+        }}
+      />
+
+      <Notification
+        open={open}
+        message={`Album ${selected} berhasil ditambahkan`}
+        title="Album berhasil ditambahkan"
+      />
+
+      <div className="layout">
+        <div className="album-wrapper">
+          <AlbumInfo
+            data={data}
+            onClick={onSelectAlbum}
+            myPlaylist={myPlaylist}
+          />
+          <SongList />
+        </div>
+      </div>
     </div>
   );
 }
