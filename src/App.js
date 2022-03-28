@@ -44,11 +44,11 @@ function App() {
 
       <div className="layout">
         <div className="album-wrapper">
-          <AlbumItem
-            data={data}
-            onClick={onSelectAlbum}
-            myPlaylist={myPlaylist}
-          />
+          {data.map(item=>(
+           <AlbumItem key={item.id} data={item}     onClick={onSelectAlbum}
+            myPlaylist={myPlaylist} />
+          ))}
+        
         </div>
       </div>
     </div>
