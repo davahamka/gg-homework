@@ -25,12 +25,14 @@ header {
   bottom: 0;
   margin-right: 20px;
   margin-bottom: 20px;
+  background-color: white;
   box-shadow: 1px 1px 2px 1px rgb(219, 219, 219);
   border-radius: 6px;
   padding: 10px 20px;
   display: flex;
   align-items: center;
   transition: all 400ms;
+  z-index: 2;
 }
 
 .notification-box .notification-message {
@@ -64,8 +66,10 @@ header {
 }
 
 .album-wrapper {
-  display: flex;
-  width: 100%;
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 22px;
 }
 
 .image-box {
@@ -115,14 +119,12 @@ header {
 .album-info {
   display: flex;
   flex-direction: column;
-  position: relative;
-  margin-top: 20px;
-  width: 100%;
   background: #f1f1f1;
   padding: 20px;
   border-radius: 20px;
   transition: all 200ms;
   cursor: pointer;
+  max-height: 400px;
 }
 
 .album-info:hover {
@@ -172,14 +174,27 @@ header {
   background-color: rgba(0, 0, 0, 0.7);
 }
 
+.album-description {
+  display: flex; 
+  flex-direction: column;
+  justify-content: space-between;
+  height: 200px;
+}
+
 @media screen and (min-width: 1024px) {
   .layout {
     width: 1200px;
     margin: 0 auto;
   }
 
+  .album-wrapper {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    gap: 92px;
+  }
+
   .album-info {
-    width: 24%;
+    width: 100%;
   }
 }
 
@@ -189,7 +204,13 @@ header {
     margin: 0 auto;
   }
 
+  .album-wrapper {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    gap: 92px;
+  }
+
   .album-info {
-    width: 24%;
+    width: 100%;
   }
 }
