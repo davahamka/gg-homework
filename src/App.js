@@ -1,58 +1,27 @@
-import data from "./data";
 import "./App.css";
-import { useEffect, useState } from "react";
-import Header from "./components/Header";
-import AlbumItem from "./components/AlbumItem";
-import Notification from "./components/Notification";
+import { Component } from "react";
+import Login from "./pages/Login";
+import Home from "./pages/Home";
 
-function App() {
-  const [myPlaylist, setMyPlaylist] = useState([]);
-  const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState("");
-
-  useEffect(() => {
-    if (open) {
-      setTimeout(() => {
-        setOpen(false);
-      }, 2000);
-    }
-  }, [open]);
-
-  const onSelectAlbum = (data) => {
-    if (myPlaylist.includes(data)) {
-      return;
-    }
-    setOpen(true);
-    setSelected(data);
-    setMyPlaylist((oldArray) => [...oldArray, data]);
+class App extends Component {
+  state = {
+    accessToken: window.location.hash
+      .substring(1, window.location.hash.length - 1)
+      .split("&")[0]
+      .split("=")[1],
   };
 
-  return (
-    <div className="App">
-      <Header
-        myPlaylist={myPlaylist}
-        removePlaylist={() => {
-          setMyPlaylist([]);
-        }}
-      />
-
-      <Notification
-        open={open}
-        message={`Album ${selected} berhasil ditambahkan`}
-        title="Album berhasil ditambahkan"
-      />
-
-      <div className="layout">
-        <div className="album-wrapper">
-          {data.map(item=>(
-           <AlbumItem key={item.id} data={item}     onClick={onSelectAlbum}
-            myPlaylist={myPlaylist} />
-          ))}
-        
-        </div>
+  render() {
+    return (
+      <div className="">
+        {this.state.accessToken ? (
+          <Home accessToken={this.state.accessToken} />
+        ) : (
+          <Login />
+        )}
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default App;
