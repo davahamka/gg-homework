@@ -3,7 +3,11 @@
 }
 
 .App {
-  display: relative;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
 }
 
 header {
@@ -157,6 +161,10 @@ header {
   font-weight: bold;
 }
 
+.btn-wrapper {
+  width: 200px;
+}
+
 .btn-select {
   background-color: black;
   color: white;
@@ -174,11 +182,29 @@ header {
   background-color: rgba(0, 0, 0, 0.7);
 }
 
+.img-box {
+  width: 80px;
+}
+
 .album-description {
-  display: flex; 
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 200px;
+}
+
+input {
+  border-radius: 10px;
+  padding: 6px 12px;
+  width: 100%;
+}
+
+.search-box {
+  display: flex;
+}
+
+.item-artist {
+  font-size: 10pt;
 }
 
 @media screen and (min-width: 1024px) {
