@@ -170,6 +170,11 @@ header {
   color: white;
 }
 
+.select-box {
+  display: flex;
+  align-items: center;
+}
+
 .info-myplaylist {
   cursor: pointer;
 }
