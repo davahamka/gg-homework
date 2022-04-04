@@ -2,6 +2,7 @@ import "./App.css";
 import { Component } from "react";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import Playlist from "./pages/Playlist";
 
 class App extends Component {
   state = {
@@ -13,7 +14,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="">
+      <div className="bg-[#121212] min-h-screen">
         {this.state.accessToken ? (
           <Home accessToken={this.state.accessToken} />
         ) : (
