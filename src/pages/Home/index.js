@@ -2,10 +2,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { useSelector } from "react-redux";
 import { API_SPOTIFY } from "../../utils/constants";
 import { formatToMinutesSecond } from "../../utils/formatToMinutesSecond";
 
-const Home = ({ accessToken }) => {
+const Home = () => {
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
   const [selectedData, setSelectedData] = useState([]);
@@ -14,6 +15,8 @@ const Home = ({ accessToken }) => {
   const [userId, setUserId] = useState("");
   const [form, setForm] = useState({});
   const [loading, setLoading] = useState(false);
+
+  const accessToken = useSelector((state) => state.auth.accessToken);
 
   const getProfileUser = async () => {
     const response = await axios.get(
