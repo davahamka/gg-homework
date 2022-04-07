@@ -1,14 +1,22 @@
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
-import { useSelector } from "react-redux";
+import PrivateRoute from "./components/PrivateRoute";
+import Header from "./components/Header";
 
 const App = () => {
-  const accessToken = useSelector((state) => state.auth.accessToken);
-
   return (
     <div className="bg-[#121212] min-h-screen">
-      {accessToken ? <Home /> : <Login />}
+      <Router>
+        <Header />
+        <Switch>
+          <Route exact path="/">
+            <Login />
+          </Route>
+          <PrivateRoute path="/create-playlist" component={Home}></PrivateRoute>
+        </Switch>
+      </Router>
     </div>
   );
 };
