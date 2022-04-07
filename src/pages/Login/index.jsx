@@ -1,11 +1,41 @@
+import { useEffect } from "react";
 import { RiSpotifyFill } from "react-icons/ri";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { setAccessToken } from "../../slices/authSlices";
 
 const Login = () => {
+  const history = useHistory();
+  const accessToken = useSelector((state) => state.auth.accessToken);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (accessToken) {
+      history.push("/create-playlist");
+    }
+  }, [accessToken, history]);
+
   const handleLogin = () => {
-    window.open(
+    window.location.replace(
       `https://accounts.spotify.com/authorize?client_id=${process.env.REACT_APP_SPOTIFY_CLIENT_ID}&response_type=token&redirect_uri=http://localhost:3000/&scope=user-read-email playlist-modify-private playlist-read-private`
     );
   };
+
+  const accessTokenFromUrl = window.location.hash
+    .substring(1, window.location.hash.length - 1)
+    .split("&")[0]
+    .split("=")[1];
+
+    // #oweqmdmowdmoqwodmqw&berar
+
+  if (accessTokenFromUrl) {
+    dispatch(setAccessToken({ accessToken: accessTokenFromUrl }));
+    history.push({
+      pathname: "/create-playlist",
+    });
+  }
+
   return (
     <div className="App">
       <div className="btn-wrapper">

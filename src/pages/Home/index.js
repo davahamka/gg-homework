@@ -3,6 +3,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { API_SPOTIFY } from "../../utils/constants";
 import { formatToMinutesSecond } from "../../utils/formatToMinutesSecond";
 
