@@ -27,8 +27,6 @@ const Login = () => {
     .split("&")[0]
     .split("=")[1];
 
-    // #oweqmdmowdmoqwodmqw&berar
-
   if (accessTokenFromUrl) {
     dispatch(setAccessToken({ accessToken: accessTokenFromUrl }));
     history.push({

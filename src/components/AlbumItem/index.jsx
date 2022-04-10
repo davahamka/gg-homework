@@ -9,24 +9,24 @@ const AlbumItem = ({ data, onClick, myPlaylist }) => {
         <p className="image-box-text">{data.album.artists[0].name}</p>
       </div>
       <div className="album-description">
-          <div>
+        <div>
           <p className="album-title">{data.name}</p>
           <p className="album-mini-info">
             {data.disc_number} songs, {dateHoursMin.getUTCMinutes()} hr{" "}
             {dateHoursMin.getUTCSeconds()} min
           </p>
-          </div>
+        </div>
 
-          <div>
-            <button
-              disabled={myPlaylist.includes(data.name)}
-              className="btn btn-select"
-              onClick={() => {
-                onClick(data.name);
-              }}
-            >
-              Select
-            </button>
+        <div>
+          <button
+            disabled={myPlaylist.includes(data.name)}
+            className="btn btn-select"
+            onClick={() => {
+              onClick(data.name);
+            }}
+          >
+            Select
+          </button>
         </div>
       </div>
     </div>
