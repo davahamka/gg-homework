@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
-import Table from "../../components/Table";
+import AlbumList from "../../components/AlbumList";
 import { API_SPOTIFY } from "../../utils/constants";
 
 const Home = () => {
@@ -161,7 +161,7 @@ const Home = () => {
 
       {playlist ? (
         <>
-          <div className="search-box mt-6 text-white">
+          <div className="search-box mt-6 text-white flex space-x-2">
             <input
               onChange={handleChange}
               placeholder="Find tracks that you want"
@@ -169,7 +169,7 @@ const Home = () => {
             />
             <div className="btn-wrapper">
               <button
-                className="bg-white text-black w-full py-2 rounded-full"
+                className="bg-white text-black w-full py-2 rounded-lg"
                 onClick={handleSearch}
               >
                 Cari
@@ -185,10 +185,10 @@ const Home = () => {
           </button>
 
           <div style={{ width: "100%" }} className="text-white mt-4">
-            <Table
-              selectedData={selectedData}
+            <AlbumList
               data={data}
               handleSelect={handleSelect}
+              selectedData={selectedData}
             />
           </div>
         </>
