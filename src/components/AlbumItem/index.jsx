@@ -1,4 +1,4 @@
-const AlbumItem = ({ data, onClick, myPlaylist }) => {
+const AlbumItem = ({ data, handleSelect, selectedData }) => {
   const dateHoursMin = new Date(Date.UTC(0, 0, 0, 0, 0, 0, data.duration_ms));
 
   return (
@@ -19,13 +19,13 @@ const AlbumItem = ({ data, onClick, myPlaylist }) => {
 
         <div>
           <button
-            disabled={myPlaylist.includes(data.name)}
+            // disabled={myPlaylist.includes(data.name)}
             className="btn btn-select"
             onClick={() => {
-              onClick(data.name);
+              handleSelect(data.uri);
             }}
           >
-            Select
+            {selectedData.includes(data.uri) ? "Deselect" : "Select"}
           </button>
         </div>
       </div>
