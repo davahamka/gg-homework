@@ -1,11 +1,11 @@
 import { RiDiscLine } from "react-icons/ri";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
+import { useAppSelector } from "../../hooks/useAppSelector";
 import { removeAccessToken } from "../../slices/authSlices";
 
 const Header = () => {
-  const accessToken = useSelector((state) => state.auth.accessToken);
-  const dispatch = useDispatch();
+  const accessToken = useAppSelector((state) => state.auth.accessToken);
+  const dispatch = useAppDispatch();
 
   return (
     <header>

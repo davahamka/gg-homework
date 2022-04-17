@@ -1,6 +1,12 @@
 import { RiCheckDoubleFill } from "react-icons/ri";
 
-const Notification = ({ open, message, title }) => {
+type Props = {
+  open: boolean;
+  message: string;
+  title: string;
+};
+
+const Notification = ({ open, message, title }: Props) => {
   return (
     <div className={`notification-box ${open ? "" : "hidden"}`}>
       <RiCheckDoubleFill />
