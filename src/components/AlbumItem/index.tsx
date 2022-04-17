@@ -1,4 +1,12 @@
-const AlbumItem = ({ data, handleSelect, selectedData }) => {
+import { ItemTrack } from "../../models/SearchTracks";
+
+type Props = {
+  data: ItemTrack;
+  handleSelect: (data: string) => void;
+  selectedData: string[];
+};
+
+const AlbumItem = ({ data, handleSelect, selectedData }: Props) => {
   const dateHoursMin = new Date(Date.UTC(0, 0, 0, 0, 0, 0, data.duration_ms));
 
   return (
@@ -19,7 +27,6 @@ const AlbumItem = ({ data, handleSelect, selectedData }) => {
 
         <div>
           <button
-            // disabled={myPlaylist.includes(data.name)}
             className="btn btn-select"
             onClick={() => {
               handleSelect(data.uri);
