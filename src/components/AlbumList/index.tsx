@@ -11,7 +11,7 @@ type Props = {
 const AlbumList = ({ data, handleSelect, selectedData }: Props) => {
   return (
     <div className={styles.listAlbum}>
-      {data.map((item: ItemTrack) => (
+      {data?.map((item: ItemTrack) => (
         <AlbumItem
           key={item.uri}
           data={item}

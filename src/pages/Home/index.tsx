@@ -4,6 +4,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import AlbumList from "../../components/AlbumList";
+import SearchTrack from "../../components/SearchTrack";
 import { useAppSelector } from "../../hooks/useAppSelector";
 import { Item, MyPlaylistResponse } from "../../models/MyPlaylist";
 import { ProfileResponse } from "../../models/Profile";
@@ -110,10 +111,10 @@ const Home = () => {
     setSearch(e.target.value);
   };
 
-  const handleSearch = async () => {
-    const response = await axios.get<SearchTracksResponse>(
-      `https://api.spotify.com/v1/search?q=${search}&access_token=${accessToken}&type=track`
-    );
+  const handleSearch = async (
+    url: string = `https://api.spotify.com/v1/search?q=${search}&access_token=${accessToken}&type=track`
+  ) => {
+    const response = await axios.get<SearchTracksResponse>(url);
     setData(response.data.tracks.items);
     return response.data;
   };
@@ -179,45 +180,17 @@ const Home = () => {
         <hr className="mt-6 " />
       </div>
 
-      {playlist.name || playlist.id ? (
-        <>
-          <div className="search-box mt-6 text-white flex space-x-2">
-            <Input
-              bg="white"
-              value={search}
-              onChange={handleChange}
-              placeholder="Find tracks that you want"
-              className="text-slate-600"
-            />
-            <div className="btn-wrapper">
-              <Button
-                width="full"
-                className="bg-white text-black w-full py-2 rounded-lg"
-                onClick={handleSearch}
-              >
-                Cari
-              </Button>
-            </div>
-          </div>
-
-          <button
-            className="w-full bg-[#1db954] mt-2 rounded-full py-2"
-            onClick={handleAdd}
-          >
-            Add to {playlist.name} Playlist
-          </button>
-
-          <div style={{ width: "100%" }} className="text-white mt-4">
-            <AlbumList
-              data={data}
-              handleSelect={handleSelect}
-              selectedData={selectedData}
-            />
-          </div>
-        </>
-      ) : (
-        ""
-      )}
+      <SearchTrack
+        search={search}
+        handleChange={handleChange}
+        handleSearch={handleSearch}
+        handleAdd={handleAdd}
+        data={data}
+        handleSelect={handleSelect}
+        playlist={playlist}
+        selectedData={selectedData}
+        url=""
+      />
     </div>
   );
 };
