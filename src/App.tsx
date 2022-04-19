@@ -8,22 +8,17 @@ import Header from "./components/Header";
 
 const App = () => {
   return (
-    <ChakraProvider>
-      <div className="bg-[#121212] min-h-screen">
-        <Router>
-          <Header />
-          <Switch>
-            <Route exact path="/">
-              <Login />
-            </Route>
-            <PrivateRoute
-              path="/create-playlist"
-              component={Home}
-            ></PrivateRoute>
-          </Switch>
-        </Router>
-      </div>
-    </ChakraProvider>
+    <div className="bg-[#121212] min-h-screen">
+      <Router>
+        <Header />
+        <Switch>
+          <Route exact path="/">
+            <Login />
+          </Route>
+          <PrivateRoute path="/create-playlist" component={Home}></PrivateRoute>
+        </Switch>
+      </Router>
+    </div>
   );
 };
 
